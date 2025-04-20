@@ -1,0 +1,26 @@
+name: check-up-to-dateness
+
+description: Check whether a merge group PR is up to date relative to its base branch
+
+inputs:
+  token:
+    description: GitHub token
+    default: ${{ github.token }}
+
+outputs:
+  is-up-to-date:
+    description: Whether the merge group PR is up to date relative to its base branch
+    value: ${{ steps.main.outputs.is-up-to-date }}
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - id: main
+      run: bash --noprofile --norc "${GITHUB_ACTION_PATH:?}/run.sh"
+      shell: bash
+      env:
+        GITHUB_EVENT_MERGE_GROUP_BASE_SHA: ${{ github.event.merge_group.base_sha }}
+        GH_TOKEN: ${{ inputs.token }}
