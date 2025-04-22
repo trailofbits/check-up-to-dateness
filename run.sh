@@ -24,8 +24,8 @@ set -x
 
 # Verify PR has not changed since workflow started. (Thanks to @elopez for noticing this potential
 # vulnerability.)
-if ! git diff --quiet "$GITHUB_SHA" "$PR_HEAD_SHA"; then
-    echo "PR has changed since workflow started." >&2
+if git diff --quiet "$GITHUB_SHA" "$PR_HEAD_SHA"; then
+    echo '::error::PR has changed since workflow started'
     exit 1
 fi
 
