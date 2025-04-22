@@ -32,7 +32,7 @@ jobs:
       - name: Prettier
         run: |
           npm install -g prettier
-          prettier --check README.md
+          prettier --check '**/*.md' '**/*.yml'
 
       - name: ShellCheck
         run: shellcheck run.sh
