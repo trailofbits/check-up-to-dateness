@@ -22,7 +22,8 @@ PR_HEAD_SHA="$(echo "$PR" | jq -r '.head.sha')"
 PR_BASE_SHA="$(echo "$PR" | jq -r '.base.sha')"
 set -x
 
-# Verify PR has not changed since workflow started.
+# Verify PR has not changed since workflow started. (Thanks to @elopez for noticing this potential
+# vulnerability.)
 if ! git diff --quiet "$GITHUB_SHA" "$PR_HEAD_SHA"; then
     echo "PR has changed since workflow started." >&2
     exit 1
