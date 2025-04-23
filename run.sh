@@ -28,3 +28,5 @@ if git diff --quiet "$GITHUB_SHA" "$PR_HEAD_SHA"; then
 else
     echo 'is-up-to-date=false' >> "$GITHUB_OUTPUT"
 fi
+
+exit 1

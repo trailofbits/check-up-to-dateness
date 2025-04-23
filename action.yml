@@ -18,6 +18,12 @@ runs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
+
+    - run: |
+        echo '${{ github.event.merge_group.head_commit.id }}'
+        echo '${{ github.event.merge_group.head_commit.tree_id }}'
+      shell: bash
+
     - id: main
       run: bash --noprofile --norc "${GITHUB_ACTION_PATH:?}/run.sh"
       shell: bash
