@@ -13,18 +13,18 @@ fi
 # Get PR number.
 N="$(expr "$GITHUB_REF" : '.*-\([0-9]\+\)-[^-]*$')"
 
-# Get PR using `gh`.
-PR="$(gh api /repos/"$GITHUB_REPOSITORY"/pulls/"$N")"
-
-# Get PR head sha and base sha.
+# Get PR head repo url, head sha, and base sha using `gh`.
 set +x
+PR="$(gh api /repos/"$GITHUB_REPOSITORY"/pulls/"$N")"
+PR_HEAD_REPO_URL="$(echo "$PR" | jq -r '.head.repo.clone_url')"
 PR_HEAD_SHA="$(echo "$PR" | jq -r '.head.sha')"
 PR_BASE_SHA="$(echo "$PR" | jq -r '.base.sha')"
 set -x
 
 # Verify PR has not changed since workflow started. (Thanks to @elopez for noticing this potential
 # vulnerability.)
-if git diff --quiet "$GITHUB_SHA" "$PR_HEAD_SHA"; then
+git fetch "$PR_HEAD_REPO_URL" "$PR_HEAD_SHA"
+if ! git diff --quiet "$GITHUB_SHA" "$PR_HEAD_SHA"; then
     echo '::error::PR has changed since workflow started'
     exit 1
 fi
