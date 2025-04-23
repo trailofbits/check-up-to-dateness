@@ -25,7 +25,7 @@ This action can be used to determine whether a PR is based on the head of its ba
      if: needs.check-up-to-dateness.outputs.is-up-to-date != 'true'
    ```
 3. Under "Settings" -> "Branches" -> "Branch protection rules" -> "Require status checks to pass before merging" -> "Status checks that are required", add the job that you created in step 1, e.g.:
-   <img src="etc/required_status_checks.png">
-   This final step ensures that if `check-up-to-dateness` fails, it will not cause a PR to be merged.
+   <img src="etc/required_status_checks.png" width=768px><br>
+   This final step ensures that if an error occurs in `check-up-to-dateness`, it will not cause a PR to be merged.
 
 [merge group]: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue
