@@ -22,5 +22,4 @@ runs:
       run: bash --noprofile --norc "${GITHUB_ACTION_PATH:?}/run.sh"
       shell: bash
       env:
-        GITHUB_EVENT_MERGE_GROUP_BASE_SHA: ${{ github.event.merge_group.base_sha }}
         GH_TOKEN: ${{ inputs.token }}
