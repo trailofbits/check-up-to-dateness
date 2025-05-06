@@ -16,7 +16,7 @@ This action can be used to determine whether a PR is based on the head of its ba
      runs-on: ubuntu-latest
      steps:
        - id: main
-         uses: trailofbits/check-up-to-dateness@main
+         uses: trailofbits/check-up-to-dateness@v1
    ```
 2. For any job you want to skip when merging, add the following:
    ```yml
